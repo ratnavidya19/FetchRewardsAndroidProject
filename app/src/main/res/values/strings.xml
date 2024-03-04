@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FetchRewardsAndroidProject</string>
+    <string name="internet_connection">Please check your internet connection</string>
+</resources>
