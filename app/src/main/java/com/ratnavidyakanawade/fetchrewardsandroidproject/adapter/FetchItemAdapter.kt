@@ -2,48 +2,42 @@ package com.ratnavidyakanawade.fetchrewardsandroidproject.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.ratnavidyakanawade.fetchrewardsandroidproject.R
 import com.ratnavidyakanawade.fetchrewardsandroidproject.databinding.ItemsLayoutBinding
 import com.ratnavidyakanawade.fetchrewardsandroidproject.model.FetchItems
 
-class FetchItemAdapter(private val itemClicked:(FetchItems) -> Unit) : RecyclerView.Adapter<FetchItemAdapter.ItemViewHolder>() {
+class FetchItemAdapter(private val itemClicked:(FetchItems) -> Unit
+): RecyclerView.Adapter<FetchItemAdapter.FetchRewardsViewHolder>() {
+    private var itemList: List<FetchItems> = emptyList()
 
-    var items: List<FetchItems>? = null
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding: ItemsLayoutBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),  R.layout.items_layout,
-            parent,
-            false
-        )
-        return ItemViewHolder(binding)
+    fun bindData(items: List<FetchItems>){
+        itemList = items
+        notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = items?.get(position)
-        holder.binding.item = item
-        //calling bind method to activate click listener
-        if (item != null) {
-            holder.bind(item)
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FetchRewardsViewHolder {
+        val binding = ItemsLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return FetchRewardsViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: FetchRewardsViewHolder, position: Int) {
+        holder.bind(itemList[position])
     }
 
     override fun getItemCount(): Int {
-        return items?.size ?: 0
+        return itemList.size
     }
 
-    inner class ItemViewHolder(val binding: ItemsLayoutBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class FetchRewardsViewHolder(
+        val binding: ItemsLayoutBinding
+    ): RecyclerView.ViewHolder(binding.root){
         fun bind(item: FetchItems){
+            binding.textViewItemListId.text = "List ID: ${item.listId}"
+            binding.textViewItemName.text = "Name: ${item.name}"
 
             itemView.setOnClickListener {
                 itemClicked(item)
             }
         }
-
     }
 }

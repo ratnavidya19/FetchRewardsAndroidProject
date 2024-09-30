@@ -8,6 +8,6 @@ The final result should be displayed to the user in an easy-to-read list.
 
 Language Used : Kotlin
 Architecture : MVVM
-Libraries : ViewModel, LiveData, Retrofit, Mockito, data binding, Kotlin Coroutines
+Libraries : ViewModel, LiveData, Retrofit, Mockito, data binding, Kotlin Coroutines, dagger and Hilt
 Unit test : Test cases written for viewModel class
 

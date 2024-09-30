@@ -12,4 +12,22 @@ interface FetchApi {
     @GET("hiring.json")
     suspend fun getItems(): List<FetchItems>
 
+    companion object {
+        operator fun invoke(
+
+        ): FetchApi{
+
+            val okHttpClient = OkHttpClient.Builder().build()
+
+            return Retrofit.
+            Builder()
+                .client(okHttpClient)
+                .baseUrl(Constants.FETCH_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(FetchApi::class.java)
+
+        }
+    }
+
 }
